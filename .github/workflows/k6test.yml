@@ -19,4 +19,4 @@ jobs:
     - name: Run k6 load test on Grafana Cloud
       env:
         K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
-      run: docker run -i -e K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN -v $PWD/k6test:/k6test grafana/k6 run --out cloud /k6test/perf1.js    
+      run: docker run -i -e K6_CLOUD_TOKEN=$K6_CLOUD_TOKEN -v $PWD/k6test:/k6test grafana/k6 run --out cloud=5190904 /k6test/perf1.js    
