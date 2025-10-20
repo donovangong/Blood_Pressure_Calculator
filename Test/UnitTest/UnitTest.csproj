@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BPCalculator\BPCalculator.csproj" />
+    <ProjectReference Include="..\..\BPCalculator\BPCalculator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

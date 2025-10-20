@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BDDTest\BDDTest.csproj" />
-    <ProjectReference Include="..\BPCalculator\BPCalculator.csproj" />
+    <ProjectReference Include="..\..\BPCalculator\BPCalculator.csproj" />
   </ItemGroup>
 
   <ItemGroup>
