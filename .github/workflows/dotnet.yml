@@ -29,8 +29,8 @@ jobs:
         dotnet test ./Test/PSTest/PSTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults --no-build --verbosity normal
         dotnet test ./Test/PageTest/PageTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults --no-build --verbosity normal
         dotnet test ./Test/BDDTest/BDDTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults --no-build --verbosity normal
-   - name: Convert coverage report to Cobertura
-     run: |
+    - name: Convert coverage report to Cobertura
+      run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
         reportgenerator -reports:"TestResults/**/*.cobertura.xml" -targetdir:"TestResults/CoverageReport" -reporttypes:Cobertura
 
