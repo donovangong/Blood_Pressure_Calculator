@@ -35,6 +35,15 @@ jobs:
     - name: Run BDD Test
       run: dotnet test ./Test/BDDTest/BDDTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults --no-build --verbosity normal
 
+    - name: Debug TestResults folder
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "List top-level files:"
+        ls -l
+        echo "List TestResults folder recursively:"
+        ls -lR TestResults
+    
     - name: Upload raw coverage results
       uses: actions/upload-artifact@v4
       with:
