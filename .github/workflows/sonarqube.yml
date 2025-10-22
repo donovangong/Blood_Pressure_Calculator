@@ -56,11 +56,11 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-           dotnet test ./Test/UnitTest/UnitTest.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../TestResults/UnitTest.coverage.xml" --results-directory TestResults
-           dotnet test ./Test/PSTest/PSTest.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../TestResults/PSTest.coverage.xml" --results-directory TestResults
-           dotnet test ./Test/PageTest/PageTest.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../TestResults/PageTest.coverage.xml" --results-directory TestResults
-           dotnet test ./Test/BDDTest/BDDTest.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../TestResults/BDDTest.coverage.xml" --results-directory TestResults
-
+           dotnet test ./Test/UnitTest/UnitTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+           dotnet test ./Test/PSTest/PSTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+           dotnet test ./Test/PageTest/PageTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+           dotnet test ./Test/BDDTest/BDDTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+           
       - name: Debug show TestResults folder
         shell: powershell
         run: |
@@ -86,7 +86,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"donovangong_bp" /o:"donovangong" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="**/TestResults/*/*.xml"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"donovangong_bp" /o:"donovangong" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths="**/TestResults/*/*.xml"
           dotnet build
           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
