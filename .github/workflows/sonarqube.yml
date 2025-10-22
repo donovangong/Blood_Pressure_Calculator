@@ -49,6 +49,10 @@ jobs:
 
       - name: Run tests with coverage
         run: dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
+        run: dotnet test ./Test/UnitTest/UnitTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+        run: dotnet test ./Test/PSTest/PSTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+        run: dotnet test ./Test/PageTest/PageTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
+        run: dotnet test ./Test/BDDTest/BDDTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
       
       - name: Build and analyze
         env:
