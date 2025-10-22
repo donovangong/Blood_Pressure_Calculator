@@ -5,6 +5,7 @@ on:
      workflows: dotnet
      types:
       - completed
+   workflow_dispatch: 
 
 jobs:
   k6_load_test:
