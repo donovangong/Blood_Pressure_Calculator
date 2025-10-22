@@ -61,6 +61,16 @@ jobs:
             dotnet test ./Test/PageTest/PageTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/PageTest/coverage.xml /p:CoverletOutputFormat=cobertura
             dotnet test ./Test/BDDTest/BDDTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/BDDTest/coverage.xml /p:CoverletOutputFormat=cobertura
 
+      - name: Debug show TestResults folder
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "List top-level files:"
+          ls -l
+          echo "List TestResults folder recursively:"
+          ls -l TestResults
+          ls -l TestResults/*
+
       
       - name: Build and analyze
         env:
