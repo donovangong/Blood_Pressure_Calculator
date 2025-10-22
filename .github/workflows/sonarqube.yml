@@ -28,6 +28,14 @@ jobs:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+          
+      - name: Install Coverlet Collector
+        run: |
+           dotnet add ./Test/UnitTest/UnitTest.csproj package coverlet.collector
+           dotnet add ./Test/PSTest/PSTest.csproj package coverlet.collector
+           dotnet add ./Test/PageTest/PageTest.csproj package coverlet.collector
+           dotnet add ./Test/BDDTest/BDDTest.csproj package coverlet.collector
+
       
       - name: Cache SonarQube Cloud scanner
         id: cache-sonar-scanner
