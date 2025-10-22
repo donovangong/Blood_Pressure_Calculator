@@ -44,13 +44,6 @@ jobs:
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
       
-      - name: Install SonarQube Cloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
-      
       - name: Restore dependencies
         run: dotnet restore
 
@@ -61,50 +54,25 @@ jobs:
            dotnet test ./Test/PageTest/PageTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
            dotnet test ./Test/BDDTest/BDDTest.csproj --collect:"XPlat Code Coverage" --results-directory TestResults
            
-      - name: Debug show TestResults folder
-        shell: powershell
-        run: |
-          Write-Host "Current directory:"
-          Get-Location
-      
-          Write-Host "`nTop-level files/folders:"
-          Get-ChildItem -Force
-      
-          Write-Host "`nList all files recursively under TestResults:"
-          $testResults = Get-ChildItem -Path TestResults -Recurse -File
-          if ($testResults) {
-              $testResults | ForEach-Object {
-                  Write-Host $_.FullName
-              }
-          } else {
-              Write-Host "No files found under TestResults"
-          }
-
-      
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          $coveragePaths = @(
-              ".\Test\UnitTest\TestResults\*\coverage.cobertura.xml",
-              ".\Test\PSTest\TestResults\*\coverage.cobertura.xml",
-              ".\Test\PageTest\TestResults\*\coverage.cobertura.xml",
-              ".\Test\BDDTest\TestResults\*\coverage.cobertura.xml"
-          ) -join ","
+          $coverageFiles = Get-ChildItem -Path "Test" -Recurse -Filter "coverage.cobertura.xml" | ForEach-Object { $_.FullName }
+          if ($coverageFiles.Count -eq 0) {
+              Write-Host "No coverage files found!"
+              exit 1
+          }
+          $coveragePaths = $coverageFiles -join ";"
+          Write-Host "Found coverage files:`n$coveragePaths"
           
-          Write-Host "Coverage paths: $coveragePaths"
-          
-          $beginCmd = "${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:`"donovangong_bp`" /o:`"donovangong`" /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`" /d:sonar.cs.vscoveragexml.reportsPaths=`"$coveragePaths`""
-          Write-Host $beginCmd
-          iex $beginCmd
-      
-          # Build the solution
+          $env:SONAR_SCANNER_HOME = "${{ runner.temp }}\scanner"
+          $scanner = Join-Path $env:SONAR_SCANNER_HOME "dotnet-sonarscanner.exe"
+          & $scanner begin /k:"donovangong_bp" /o:"donovangong" /d:sonar.token="${env:SONAR_TOKEN}" /d:sonar.cs.vscoveragexml.reportsPaths="$coveragePaths"
+
           dotnet build
       
-          # End analysis (only token)
-          $endCmd = "${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`""
-          Write-Host $endCmd
-          iex $endCmd
+          & $scanner end /d:sonar.token="${env:SONAR_TOKEN}"
 
 
