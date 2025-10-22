@@ -6,16 +6,24 @@ on:
       types: [opened, synchronize, reopened]
   workflow_dispatch: 
 
-name: Main Workflow
+name: Sonarqube
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
-        # Disabling shallow clones is recommended for improving the relevancy of reporting
         fetch-depth: 0
+        
+    - name: Find coverage files
+      shell: powershell
+      run: |
+        $coverageFiles = Get-ChildItem -Path "Test" -Recurse -Filter "coverage.cobertura.xml" | ForEach-Object { $_.FullName }
+        $coverageFilesString = $coverageFiles -join ","
+        Write-Host "COVERAGE_FILES=$coverageFilesString" >> $env:GITHUB_ENV
+
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v4.1.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_SCANNER_OPTS: /d:sonar.cs.opencover.reportsPaths=${{ env.COVERAGE_FILES }}
