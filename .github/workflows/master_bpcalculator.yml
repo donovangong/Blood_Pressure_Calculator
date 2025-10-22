@@ -4,10 +4,7 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - BPCalculator
 
 on:
-   workflow_run:
-     workflows: ["dotnet","k6test","sonarqube"]
-     types:
-      - completed
+   workflow_dispatch: 
 
 jobs:
   build:
@@ -76,3 +73,4 @@ jobs:
           package: .
 
           
+
