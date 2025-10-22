@@ -62,14 +62,14 @@ jobs:
             dotnet test ./Test/BDDTest/BDDTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/BDDTest/coverage.xml /p:CoverletOutputFormat=cobertura
 
       - name: Debug show TestResults folder
+        shell: powershell
         run: |
-          echo "Current directory:"
-          pwd
-          echo "List top-level files:"
-          ls -l
-          echo "List TestResults folder recursively:"
-          ls -l TestResults
-          ls -l TestResults/*
+          Write-Host "Current directory:"
+          Get-Location
+          Write-Host "List top-level files:"
+          Get-ChildItem
+          Write-Host "List TestResults folder recursively:"
+          Get-ChildItem TestResults -Recurse
 
       
       - name: Build and analyze
