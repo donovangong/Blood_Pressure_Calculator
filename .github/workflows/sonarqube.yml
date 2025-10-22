@@ -56,10 +56,10 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-            dotnet test ./Test/UnitTest/UnitTest.csproj --no-build /p:CollectCoverage=true /p:CoverletOutput=./TestResults/UnitTest/coverage.xml /p:CoverletOutputFormat=cobertura
-            dotnet test ./Test/PSTest/PSTest.csproj --no-build /p:CollectCoverage=true /p:CoverletOutput=./TestResults/PSTest/coverage.xml /p:CoverletOutputFormat=cobertura
-            dotnet test ./Test/PageTest/PageTest.csproj --no-build /p:CollectCoverage=true /p:CoverletOutput=./TestResults/PageTest/coverage.xml /p:CoverletOutputFormat=cobertura
-            dotnet test ./Test/BDDTest/BDDTest.csproj --no-build /p:CollectCoverage=true /p:CoverletOutput=./TestResults/BDDTest/coverage.xml /p:CoverletOutputFormat=cobertura
+            dotnet test ./Test/UnitTest/UnitTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/UnitTest/coverage.xml /p:CoverletOutputFormat=cobertura
+            dotnet test ./Test/PSTest/PSTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/PSTest/coverage.xml /p:CoverletOutputFormat=cobertura
+            dotnet test ./Test/PageTest/PageTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/PageTest/coverage.xml /p:CoverletOutputFormat=cobertura
+            dotnet test ./Test/BDDTest/BDDTest.csproj /p:CollectCoverage=true /p:CoverletOutput=./TestResults/BDDTest/coverage.xml /p:CoverletOutputFormat=cobertura
 
       
       - name: Build and analyze
