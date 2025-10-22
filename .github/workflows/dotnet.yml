@@ -23,8 +23,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     
-    #- name: Run Unit Test
-      #run: dotnet test ./Test/UnitTest/UnitTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults --no-build --verbosity normal
+    - name: Clean old test results
+      run: rm -rf TestResults || true
+
+    - name: Run Unit Test
+      run: dotnet test ./Test/UnitTest/UnitTest.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=./TestResults/UnitTest/coverage.xml /p:CoverletOutputFormat=cobertura
 
     - name: Run PS Test
       run: dotnet test ./Test/PSTest/PSTest.csproj --collect:"XPlat Code Coverage" --results-directory ./TestResults  --no-build --verbosity normal
