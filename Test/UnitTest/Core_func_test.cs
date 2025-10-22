@@ -1,6 +1,4 @@
 ﻿using BPCalculator;
-
-using Microsoft.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest
