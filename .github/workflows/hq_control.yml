@@ -1,4 +1,4 @@
-name: HQ Control — Full CI/CD Pipeline
+name: HQ Control of All workflow
 
 on:
   push:
