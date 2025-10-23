@@ -23,5 +23,8 @@ jobs:
   deploy:
     name: Deploy to Cloud
     needs: [sonarqube_check,k6_check]
+    permissions:
+      id-token: write
+      contents: read
     uses: ./.github/workflows/deploy_cloud.yml
 
