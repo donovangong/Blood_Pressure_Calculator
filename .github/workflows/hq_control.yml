@@ -1,0 +1,27 @@
+name: HQ Control — Full CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  dotnet:
+    name: Build & Test 
+    uses: ./.github/workflows/dotnet.yml
+
+  quality_and_perf:
+    name: Quality + Performance Checks
+    needs: dotnet
+    strategy:
+      matrix:
+        include:
+          - workflow: sonarqube.yml
+          - workflow: k6test.yml
+    uses: ./.github/workflows/${{ matrix.workflow }}
+
+  deploy:
+    name: Deploy to Cloud
+    needs: quality_and_perf
+    uses: ./.github/workflows/deploy_cloud.yml
+

@@ -1,10 +1,5 @@
 on:
-  workflow_run:
-    workflows: [dotnet]
-    types:
-     - completed
-    branches:
-     - master
+  workflow_call:
   workflow_dispatch:
 
 name: SonarQ

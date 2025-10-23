@@ -1,13 +1,8 @@
 name: k6 bp
 
 on:
-   workflow_run:
-     workflows: dotnet
-     types:
-      - completed
-     braches:
-      - master   
-   workflow_dispatch: 
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   k6_load_test:

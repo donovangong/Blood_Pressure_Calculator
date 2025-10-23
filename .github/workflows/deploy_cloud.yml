@@ -5,6 +5,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - BPCalculator
 
 on:
    workflow_dispatch: 
+   workflwo_call:
 
 jobs:
   build:
