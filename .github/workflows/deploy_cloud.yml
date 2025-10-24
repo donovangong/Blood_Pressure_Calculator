@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: 4 - Build and Deploy
+name: 6 - Official Build and Deploy
 
 on:
    workflow_dispatch: 
@@ -22,19 +22,7 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: Run Unit Test
-        run: dotnet test ./Test/UnitTest/UnitTest.csproj --verbosity normal
-
-      - name: Run PS Test
-        run: dotnet test ./Test/PSTest/PSTest.csproj --verbosity normal
-          
-      - name: Run Page Test
-        run: dotnet test ./Test/PageTest/PageTest.csproj --verbosity normal
-
-      - name: Run BDD Test
-        run: dotnet test ./Test/BDDTest/BDDTest.csproj --no-build --verbosity normal
+        run: dotnet build D:\a\bp\bp\BPCalculator\BPCalculator.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
@@ -69,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'BPCalculatortest'
+          app-name: 'BPCalculator'
           slot-name: 'Production'
           package: .
 

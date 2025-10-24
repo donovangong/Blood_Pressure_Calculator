@@ -23,17 +23,26 @@ jobs:
     uses: ./.github/workflows/k6test.yml
     secrets: inherit
 
-  deploy:
-    name: Deploy to Cloud
+  test_deploy:
+    name: Test Env Deploy
     needs: [sonarqube_check,k6_check]
     permissions:
       id-token: write
       contents: read
-    uses: ./.github/workflows/deploy_cloud.yml
+    uses: ./.github/workflows/deploy_test.yml
     secrets: inherit
 
   e2e_check:
     name: E2e UI Test
-    needs: deploy
+    needs: test_deploy
     uses: ./.github/workflows/playwright.yml
+    secrets: inherit
+    
+  official_deploy:
+    name: Official Env Deploy
+    needs: e2e_check
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/deploy_cloud.yml
     secrets: inherit
