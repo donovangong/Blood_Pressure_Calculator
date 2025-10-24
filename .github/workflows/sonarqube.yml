@@ -2,7 +2,7 @@ on:
   workflow_call:
   workflow_dispatch:
 
-name: SonarQ
+name: 2 - Sonarube test
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
