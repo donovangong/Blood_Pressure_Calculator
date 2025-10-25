@@ -19,7 +19,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '8.x'
 
       - name: Build with dotnet
         run: dotnet build D:\a\bp\bp\BPCalculator\BPCalculator.csproj --configuration Release
@@ -37,13 +37,13 @@ jobs:
         run: dotnet test ./Test/BDDTest/BDDTest.csproj --no-build --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish D:\a\bp\bp\BPCalculator\BPCalculator.csproj -c Release -o ./publish
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app-test
-          path: ./publish
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -70,7 +70,8 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'BPCalculatortest'
-          package: ./
+          slot-name: 'Production'
+          package: .
 
           
 
