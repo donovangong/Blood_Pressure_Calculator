@@ -76,9 +76,8 @@ jobs:
                -Method POST `
                -Headers @{Authorization="Bearer $AZURE_ACCESS_TOKEN"; "Content-Type"="application/json"} `
                -Body '{"command":"cmd /c rmdir /s /q D:\\home\\data && mkdir D:\\home\\data"}'
-          $zipdeployContents = dir "D:\local\Temp\zipdeploy"
-          $dataContents = dir "D:\home\data"
-      
+          $kuduApiUrl = "https://bpcalculatortest-crdjejebh3dyazgq.scm.azurewebsites.net/api/vfs/D:/local/Temp/zipdeploy/"
+          $response = Invoke-RestMethod -Uri $kuduApiUrl -Headers @{Authorization="Bearer $AZURE_ACCESS_TOKEN"}
           if ($zipdeployContents.Count -eq 0 -and $dataContents.Count -eq 0) {
               Write-Host "Success in Directories Cleaning."
           } else {
