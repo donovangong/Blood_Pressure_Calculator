@@ -67,10 +67,8 @@ jobs:
 
       - name: Clean up zipdeploy via Kudu API
         run: |
-          curl -X POST "https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/api/command" \
-            -H "Authorization: Bearer $AZURE_ACCESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"command":"cmd /c rmdir /s /q D:\\local\\Temp\\zipdeploy && mkdir D:\\local\\Temp\\zipdeploy"}'
+         $AZURE_ACCESS_TOKEN=$(az account get-access-token --resource https://management.azure.com --query accessToken -o tsv)
+         curl "https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/api/command" -Method POST -Headers @{Authorization="Bearer $AZURE_ACCESS_TOKEN"; "Content-Type"="application/json"} -Body '{"command":"cmd /c rmdir /s /q D:\\local\\Temp\\zipdeploy && mkdir D:\\local\\Temp\\zipdeploy"}'
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
