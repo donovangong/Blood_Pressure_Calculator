@@ -65,12 +65,12 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3CCA1FE6F9F7434684ACCF6F4DC0A451 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A4206752A52D4A7A952EFFBBB528D357 }}
 
-      - name: Clean up Azure Web App temp directory
+      - name: Clean up zipdeploy via Kudu API
         run: |
-          az webapp ssh --resource-group tu_csd_test --name BPCalculatortest --command "cmd /c rmdir /s /q D:\local\Temp\zipdeploy && mkdir D:\local\Temp\zipdeploy"
-          az webapp ssh --resource-group tu_csd_test --name BPCalculatortest --command "cmd /c rmdir /s /q D:\home\data && mkdir D:\home\data"
-        shell: bash
-
+          curl -X POST "https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/api/command" \
+            -H "Authorization: Bearer $AZURE_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"command":"cmd /c rmdir /s /q D:\\local\\Temp\\zipdeploy && mkdir D:\\local\\Temp\\zipdeploy"}'
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
