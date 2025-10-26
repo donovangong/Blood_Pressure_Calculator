@@ -65,20 +65,11 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3CCA1FE6F9F7434684ACCF6F4DC0A451 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A4206752A52D4A7A952EFFBBB528D357 }}
 
-      - name: Clean up Azure Web App temp directory via Kudu API
+      - name: Clean up Azure Web App temp directory
         run: |
-          $publishProfile = az webapp deployment user show --query publishingUserName -o tsv
-          $publishPassword = az webapp deployment user show --query publishingPassword -o tsv
-          $kuduApiUrl = "https://BPCalculatortest.scm.azurewebsites.net/api/command"
-          $command = @{
-            command = "cmd /c rmdir /s /q D:\local\Temp\zipdeploy && mkdir D:\local\Temp\zipdeploy"
-            dir = "D:\local\Temp"
-          } | ConvertTo-Json
-          Invoke-RestMethod -Uri $kuduApiUrl -Method Post -Headers @{
-            Authorization = "Basic $([Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(\"${publishProfile}:${publishPassword}\")))"
-            "Content-Type" = "application/json"
-          } -Body $command
-        shell: powershell
+          az webapp ssh --resource-group tu_csd_test --name BPCalculatortest --command "cmd /c rmdir /s /q D:\local\Temp\zipdeploy && mkdir D:\local\Temp\zipdeploy"
+          az webapp ssh --resource-group tu_csd_test --name BPCalculatortest --command "cmd /c rmdir /s /q D:\home\data && mkdir D:\home\data"
+        shell: bash
 
 
       - name: Deploy to Azure Web App
