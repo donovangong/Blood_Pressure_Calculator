@@ -76,6 +76,14 @@ jobs:
                -Method POST `
                -Headers @{Authorization="Bearer $AZURE_ACCESS_TOKEN"; "Content-Type"="application/json"} `
                -Body '{"command":"cmd /c rmdir /s /q D:\\home\\data && mkdir D:\\home\\data"}'
+          $zipdeployContents = dir "D:\local\Temp\zipdeploy"
+          $dataContents = dir "D:\home\data"
+      
+          if ($zipdeployContents.Count -eq 0 -and $dataContents.Count -eq 0) {
+              Write-Host "Success in Directories Cleaning."
+          } else {
+              Write-Host "Failed in Directories Cleaning."
+          }
         shell: pwsh
   
       - name: Deploy to Azure Web App
