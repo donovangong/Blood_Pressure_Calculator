@@ -75,7 +75,7 @@ jobs:
             dir = "D:\local\Temp"
           } | ConvertTo-Json
           Invoke-RestMethod -Uri $kuduApiUrl -Method Post -Headers @{
-            Authorization = "Basic $([Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\"$($publishProfile):$($publishPassword)\")))"
+            Authorization = "Basic $([Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(\"${publishProfile}:${publishPassword}\")))"
             "Content-Type" = "application/json"
           } -Body $command
         shell: powershell
