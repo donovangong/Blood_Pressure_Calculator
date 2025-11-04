@@ -17,30 +17,30 @@ jobs:
     uses: ./.github/workflows/2_sonarqube.yml
     secrets: inherit
 
-  k6_check:
-    name: K6 Performance Test
-    needs: dotnet
-    uses: ./.github/workflows/2_k6test.yml
-    secrets: inherit
-
   test_deploy:
     name: Test Env Deploy
-    needs: [sonarqube_check,k6_check]
+    needs: sonarqube_check
     permissions:
       id-token: write
       contents: read
-    uses: ./.github/workflows/4_deploy_test.yml
+    uses: ./.github/workflows/3_deploy_test.yml
     secrets: inherit
 
   e2e_check:
     name: E2e UI Test
     needs: test_deploy
-    uses: ./.github/workflows/5_playwright.yml
+    uses: ./.github/workflows/4_playwright.yml
     secrets: inherit
     
+  k6_check:
+    name: K6 Performance Test
+    needs: test_deploy
+    uses: ./.github/workflows/4_k6test.yml
+    secrets: inherit
+
   official_deploy:
     name: Official Env Deploy
-    needs: e2e_check
+    needs: [e2e_check,k6_check]
     permissions:
       id-token: write
       contents: read
