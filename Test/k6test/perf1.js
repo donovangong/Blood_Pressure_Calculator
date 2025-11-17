@@ -24,7 +24,7 @@ function getRandomInt(min, max) {
 
 
 export default function () {
-    let res = http.get("bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net", { responseType: "text" });
+    let res = http.get("https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net", { responseType: "text" });
 
     check(res, {
         "GET status 200": (r) => r.status === 200,
@@ -45,3 +45,4 @@ export default function () {
 
     sleep(3);
 }
+
