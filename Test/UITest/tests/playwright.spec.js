@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-    await page.goto('https://bpcalculator.azurewebsites.net/');
+    await page.goto('https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/');
     await page.getByRole('spinbutton', { name: 'Systolic' }).fill('89');
     await page.getByRole('spinbutton', { name: 'Diastolic' }).fill('59');
     await page.getByRole('button', { name: 'Submit' }).click();
