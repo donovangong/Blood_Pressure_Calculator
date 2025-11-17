@@ -40,15 +40,18 @@ namespace BPCalculator
                     return BPCategory.High;
             }
         }
-
-        // ===== HISTORY =====
         public static Queue<BloodPressure> History { get; } = new();
 
+        // Add to history safely
         public void AddToHistory()
         {
+            if (this == null)
+                return;
+
             if (History.Count == 10)
                 History.Dequeue();
 
+            // Never enqueue null ¡ª always new BP instance
             History.Enqueue(new BloodPressure
             {
                 Systolic = this.Systolic,
@@ -56,11 +59,10 @@ namespace BPCalculator
             });
         }
 
-        // ===== MUST EXIST FOR CHART =====
         public static int[] SysSeries =>
-            History.Select(h => h.Systolic).ToArray();
+            History.Where(h => h != null).Select(h => h.Systolic).ToArray();
 
         public static int[] DiaSeries =>
-            History.Select(h => h.Diastolic).ToArray();
+            History.Where(h => h != null).Select(h => h.Diastolic).ToArray();
     }
 }

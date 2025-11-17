@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-md-8">
-        @if (BloodPressure.SysSeries.Length > 0)
+        @if (BloodPressure.SysSeries != null && BloodPressure.SysSeries.Length > 0)
         {
             <h4>Blood Pressure Trend (Last 10 Readings)</h4>
             <canvas id="bpChart" width="600" height="300"></canvas>
