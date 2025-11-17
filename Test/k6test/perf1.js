@@ -12,19 +12,20 @@ export let options = {
         "http_req_duration": ["p(95)<300"],
     },
     discardResponseBodies: false,
-  cloud: {
-    projectID: 5190904
-  }
+    cloud: {
+        projectID: 5190904
+    }
 };
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min); 
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-
-
 export default function () {
-    let res = http.get("https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net", { responseType: "text" });
+
+    const url = "https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net";
+
+    let res = http.get(url, { responseType: "text" });
 
     check(res, {
         "GET status 200": (r) => r.status === 200,
@@ -32,10 +33,8 @@ export default function () {
 
     res = res.submitForm({
         fields: {
-            Systolic: getRandomInt(90, 180).toString(),
-            Diastolic: getRandomInt(60, 120).toString(),
-            Age: getRandomInt(20, 80).toString(),
-            Gender: "M"
+            "BP.Systolic": getRandomInt(90, 180).toString(),
+            "BP.Diastolic": getRandomInt(60, 120).toString(),
         },
     });
 
@@ -45,4 +44,3 @@ export default function () {
 
     sleep(3);
 }
-

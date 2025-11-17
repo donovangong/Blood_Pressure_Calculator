@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace BPCalculator
 {
-    // BP categories
     public enum BPCategory
     {
         [Display(Name = "Low Blood Pressure")] Low,
@@ -22,12 +21,11 @@ namespace BPCalculator
         public const int DiastolicMax = 100;
 
         [Range(SystolicMin, SystolicMax, ErrorMessage = "Invalid Systolic Value")]
-        public int Systolic { get; set; }   // mmHG
+        public int Systolic { get; set; }
 
         [Range(DiastolicMin, DiastolicMax, ErrorMessage = "Invalid Diastolic Value")]
-        public int Diastolic { get; set; }  // mmHG
+        public int Diastolic { get; set; }
 
-        // ===== BP category =====
         public BPCategory Category
         {
             get
@@ -43,7 +41,7 @@ namespace BPCalculator
             }
         }
 
-        // ===== HISTORY (last 10 readings) =====
+        // ===== HISTORY =====
         public static Queue<BloodPressure> History { get; } = new();
 
         public void AddToHistory()
@@ -58,6 +56,7 @@ namespace BPCalculator
             });
         }
 
+        // ===== MUST EXIST FOR CHART =====
         public static int[] SysSeries =>
             History.Select(h => h.Systolic).ToArray();
 
