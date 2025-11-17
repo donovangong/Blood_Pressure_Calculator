@@ -42,12 +42,6 @@ jobs:
     - name: Run BDD Test
       run: dotnet test ./Test/BDDTest/BDDTest.csproj --verbosity normal
 
-    - name: Upload Nuget package as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: NuGet package
-        path: ./*.nupkg
-
     - name: Publish for deployment
       run: dotnet publish ./BPCalculator/BPCalculator.csproj -c Release -o "./publish"
     
