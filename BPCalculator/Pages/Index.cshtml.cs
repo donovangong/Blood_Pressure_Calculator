@@ -19,22 +19,10 @@ namespace BPCalculator.Pages
         // POST, validate
         public IActionResult OnPost()
         {
-            // extra validation
             if (!(BP.Systolic > BP.Diastolic))
             {
                 ModelState.AddModelError("", "Systolic must be greater than Diastolic");
             }
-
-            if (!ModelState.IsValid)
-                return Page();
-
-            if (HttpContext == null || Request == null || Request.Headers == null)
-                return Page();
-
-            var ua = Request.Headers.UserAgent.ToString();
-            if (!ua.Contains("Mozilla"))   
-                return Page();
-
             return Page();
         }
     }

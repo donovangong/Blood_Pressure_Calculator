@@ -32,7 +32,12 @@
 
             @if (ViewData.ModelState.IsValid)
             {
-                 Model.BP.AddToHistory(); 
+                var ua = HttpContext.Request.Headers.UserAgent.ToString();
+
+                if (!string.IsNullOrEmpty(ua) && ua.Contains("Mozilla"))
+                {
+                    Model.BP.AddToHistory();
+                }
 
                 <div class="mt-2">
                     <strong>Category:</strong>
