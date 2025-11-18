@@ -7,7 +7,7 @@ namespace BPFeatureTest.Steps
     [Binding]
     public sealed class BP_CalculationSteps
     {
-        private BloodPressure bp;
+        private BloodPressure bp = new();
         private BPCategory result;
         private bool invalid;
 

@@ -45,6 +45,7 @@ namespace BPCalculator
         // Add to history safely
         public void AddToHistory()
         {
+
             if (this == null)
                 return;
 

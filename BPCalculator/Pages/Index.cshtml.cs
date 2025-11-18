@@ -24,6 +24,16 @@ namespace BPCalculator.Pages
             {
                 ModelState.AddModelError("", "Systolic must be greater than Diastolic");
             }
+
+            if (!ModelState.IsValid)
+                return Page();
+
+            var ua = Request.Headers.UserAgent.ToString();
+            if (!ua.Contains("Mozilla"))   
+                return Page();
+
+            BP.AddToHistory();
+
             return Page();
         }
     }
