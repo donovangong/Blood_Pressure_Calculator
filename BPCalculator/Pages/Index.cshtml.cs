@@ -32,8 +32,6 @@ namespace BPCalculator.Pages
             if (!ua.Contains("Mozilla"))   
                 return Page();
 
-            BP.AddToHistory();
-
             return Page();
         }
     }
