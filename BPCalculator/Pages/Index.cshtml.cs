@@ -28,6 +28,9 @@ namespace BPCalculator.Pages
             if (!ModelState.IsValid)
                 return Page();
 
+            if (HttpContext == null || Request == null || Request.Headers == null)
+                return Page();
+
             var ua = Request.Headers.UserAgent.ToString();
             if (!ua.Contains("Mozilla"))   
                 return Page();
