@@ -1,0 +1,30 @@
+name: HQ Control of All workflow
+
+on:
+  #push:
+  #  branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  dotnet:
+    name: 1_Build & Test 
+    uses: ./.github/workflows/1_dotnet.yml
+    secrets: inherit
+
+  test_deploy:
+    name: 3_Test Env Deploy
+    needs: [sonarqube_check,dependency_check]
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/3_deploy_test.yml
+    secrets: inherit
+
+  official_deploy:
+    name: 6_Official Env Deploy
+    needs: [e2e_check,k6_check]
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/6_deploy_cloud.yml
+    secrets: inherit
