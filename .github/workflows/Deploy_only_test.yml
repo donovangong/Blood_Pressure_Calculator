@@ -1,4 +1,4 @@
-name: HQ Control of All workflow
+name: Deploy only test
 
 on:
   #push:
