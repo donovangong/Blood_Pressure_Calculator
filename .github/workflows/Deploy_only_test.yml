@@ -13,7 +13,7 @@ jobs:
 
   test_deploy:
     name: 3_Test Env Deploy
-    needs: [sonarqube_check,dependency_check]
+    needs: dotnet
     permissions:
       id-token: write
       contents: read
@@ -22,7 +22,7 @@ jobs:
 
   official_deploy:
     name: 6_Official Env Deploy
-    needs: [e2e_check,k6_check]
+    needs: test_deploy
     permissions:
       id-token: write
       contents: read
