@@ -1,5 +1,5 @@
 param appName string
-param location string = resourceGroup().location
+param location string = 'francecentral'
 
 /*
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
