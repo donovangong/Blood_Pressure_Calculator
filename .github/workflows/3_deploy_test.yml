@@ -36,20 +36,13 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EFA78F46EC6B42CD97B8E905DDAA3BBD }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AABE6B46DB5D4BF6AAD8C4858EC6D677 }}
   
-      - name: Deploy IaC (Bicep)
-        run: |
-            az deployment group create `
-              --resource-group TU_CSD_test `
-              --template-file ./deploy/deploy_test.bicep `
-              --parameters appName="BPCalculatortest"
-
-
-      - name: Deploy app package
-        run: |
-          az webapp deploy `
-            --resource-group bp-rg `
-            --name BPCalculatortest `
-            --src-path ./published-app
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'BPCalculatortest'
+          slot-name: 'Production'
+          package: './published-app'
 
           
 
