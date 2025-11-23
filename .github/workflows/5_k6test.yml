@@ -1,4 +1,4 @@
-name: 4 - K6
+name: 5 - K6
 
 on:
   workflow_dispatch:
