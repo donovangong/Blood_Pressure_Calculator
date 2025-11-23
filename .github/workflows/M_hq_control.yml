@@ -38,16 +38,16 @@ jobs:
     uses: ./.github/workflows/4_playwright.yml
     secrets: inherit
     
-  k6_check:
-    name: 4_K6 Performance Test
-    needs: test_deploy
-    uses: ./.github/workflows/4_k6test.yml
-    secrets: inherit
-
   pen_check:
-    name: 5_Penetration Test
-    needs: [e2e_check,k6_check]
-    uses: ./.github/workflows/5_pen_test.yml
+    name: 4_Penetration Test
+    needs: test_deploy
+    uses: ./.github/workflows/4_pen_test.yml
+    secrets: inherit
+    
+  k6_check:
+    name: 5_K6 Performance Test
+    needs: [e2e_check,pen_check]
+    uses: ./.github/workflows/5_k6test.yml
     secrets: inherit
 
   official_deploy:
