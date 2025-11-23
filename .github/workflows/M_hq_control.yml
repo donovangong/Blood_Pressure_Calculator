@@ -44,9 +44,15 @@ jobs:
     uses: ./.github/workflows/4_k6test.yml
     secrets: inherit
 
+  pen_check:
+    name: 5_Penetration Test
+    needs: [e2e_check,k6_check]
+    uses: ./.github/workflows/5_pen_test.yml
+    secrets: inherit
+
   official_deploy:
     name: 6_Official Env Deploy
-    needs: [e2e_check,k6_check]
+    needs: pen_check
     permissions:
       id-token: write
       contents: read
