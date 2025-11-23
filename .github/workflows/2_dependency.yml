@@ -1,4 +1,4 @@
-name: 2 - OWASP Dependency Checker       
+name: 2 - Dependency Checker       
   
 on:
    workflow_dispatch: 
