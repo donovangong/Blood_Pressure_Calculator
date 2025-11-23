@@ -1,4 +1,4 @@
-name: 4 - Playwright test
+name: 4 - Playwright
 on:
   workflow_dispatch:
   workflow_call:
