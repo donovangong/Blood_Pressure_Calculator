@@ -1,4 +1,4 @@
-name: 5 - Penetration test
+name: 4 - Penetration test
 
 env:
   URI: https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/          
