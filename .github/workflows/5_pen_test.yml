@@ -4,7 +4,8 @@ env:
   URI: https://bpcalculatortest-crdjejebh3dyazgq.francecentral-01.azurewebsites.net/          
   
 on:
-  workflow_dispatch:                
+   workflow_dispatch: 
+   workflow_call:            
 
 jobs:
 
