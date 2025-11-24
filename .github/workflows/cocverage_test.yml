@@ -2,7 +2,7 @@ on:
   workflow_call:
   workflow_dispatch:
 
-name: 2 - Sonarube
+name: 2 - Sonarube - 1
 
 jobs:
   sonarqube:
