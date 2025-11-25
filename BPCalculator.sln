@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPCalculator", "BPCalculato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "Test\UnitTest\UnitTest.csproj", "{5D912FE9-06BD-49B5-9FA2-F5A25698ED46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSTest", "Test\SmokeTest\Smoke_Test.csproj", "{24E5EC90-812E-49E8-8845-7B4AE5C70113}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTest", "Test\PageTest\PageTest.csproj", "{C896DCBB-773E-42B4-9AFC-12A9C8EBD8BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDDTest", "Test\BDDTest\BDDTest.csproj", "{02177C52-BAE2-4E7E-A3C0-CCE1DAD096E7}"
