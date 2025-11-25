@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Diagnostics;
 
 namespace PageTest
 {
@@ -31,6 +32,11 @@ namespace PageTest
             // ---- Error page ----
             var error = new ErrorModel(NullLogger<ErrorModel>.Instance);
             error.PageContext = new PageContext { HttpContext = new DefaultHttpContext() };
+            Activity.Current = new Activity("test").Start();
+            error.OnGet();
+
+            // Cover Activity.Current == null branch
+            Activity.Current = null;
             error.OnGet();
 
             Assert.IsTrue(error.ShowRequestId);
