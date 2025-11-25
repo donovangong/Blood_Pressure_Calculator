@@ -11,10 +11,14 @@ namespace BPCalculator
 {
     public class Program
     {
+        public static IHost BuildHost(string[] args)
+        {
+            return CreateHostBuilder(args).Build();
+        }
+
         public static void Main(string[] args)
         {
-            
-            CreateHostBuilder(args).Build().Run();
+            BuildHost(args).Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

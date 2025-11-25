@@ -38,7 +38,9 @@ namespace PageTest
             // Program.cs coverage
             var hostBuilder = Program.CreateHostBuilder(Array.Empty<string>());
             Assert.IsNotNull(hostBuilder);
-            using var host = Program.CreateHostBuilder(Array.Empty<string>()).Build();
+
+            var host = Program.BuildHost(Array.Empty<string>());
+            Assert.IsNotNull(host);
 
             // Privacy page coverage
             var privacy = new PrivacyModel(NullLogger<PrivacyModel>.Instance);
