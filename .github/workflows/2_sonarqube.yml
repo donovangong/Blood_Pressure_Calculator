@@ -17,11 +17,13 @@ jobs:
     - name: Build test projects
       run: |
         dotnet build ./Test/UnitTest/UnitTest.csproj
+        dotnet build ./Test/PageTest/PageTest.csproj
         dotnet build ./Test/BDDTest/BDDTest.csproj
 
     - name: Generate coverage
       run: |
         coverlet ./Test/UnitTest/bin/Debug/net9.0/UnitTest.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o UnitTest.xml
+        coverlet ./Test/PageTest/bin/Debug/net9.0/PageTest.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o PageTest.xml
         coverlet ./Test/BDDTest/bin/Debug/net9.0/BDDTest.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o BDDTest.xml
 
     - name: SonarQube Scan
