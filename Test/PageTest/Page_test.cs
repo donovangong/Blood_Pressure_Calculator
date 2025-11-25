@@ -35,6 +35,15 @@ namespace PageTest
             Activity.Current = new Activity("test").Start();
             error.OnGet();
 
+            // Program.cs coverage
+            var hostBuilder = Program.CreateHostBuilder(Array.Empty<string>());
+            Assert.IsNotNull(hostBuilder);
+            using var host = Program.CreateHostBuilder(Array.Empty<string>()).Build();
+
+            // Privacy page coverage
+            var privacy = new PrivacyModel(NullLogger<PrivacyModel>.Instance);
+            privacy.OnGet();
+
             // Cover Activity.Current == null branch
             Activity.Current = null;
             error.OnGet();
